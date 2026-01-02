@@ -45,10 +45,6 @@ entra-learn/
 ### 1. 依存関係のインストール
 
 ```bash
-# リポジトリのクローン（まだの場合）
-git clone <repository-url>
-cd entra-learn
-
 # 依存パッケージのインストール
 uv sync
 ```
@@ -59,7 +55,7 @@ uv sync
 
 *   **[01_jwt_structure/](01_jwt_structure/README.md)**: JWTの構造理解
 *   **[02_signature/](02_signature/README.md)**: 署名の検証実験
-*   **[03_refresh_token/](03_refresh_token/README.md)**: トークン更新の実践（※設定が必要です）
+*   **[03_refresh_token/](03_refresh_token/README.md)**: トークン更新の実践
 
 ### 3. スクリプトの実行
 
