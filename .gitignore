@@ -1,0 +1,8 @@
+# 機密情報ファイル（アクセストークンなど）
+access_token
+*.token
+.env
+
+# Python キャッシュ・一時ファイル
+__pycache__/
+*.py[cod]
