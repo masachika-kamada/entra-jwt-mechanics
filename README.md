@@ -1,41 +1,70 @@
 # Entra JWT Mechanics
 
-このリポジトリは、Microsoft Entra ID (旧 Azure AD) のアクセストークンや JWT (JSON Web Token) の仕組みについて学習した内容と、検証用コードをまとめたものです。
-アクセストークンの内部構造、Base64エンコードのビット計算、RSA署名による改ざん防止の数学的仕組みなど、**「メカニズム」** に焦点を当てて解説しています。
+このリポジトリは、Microsoft Entra ID (旧 Azure AD) のアクセストークンや JWT (JSON Web Token) の仕組み、およびリフレッシュトークンによる更新フローについて学習した内容と、検証用コードをまとめたものです。
 
-詳細な解説は以下のドキュメントに分けて記載しています。
+アクセストークンの内部構造、RSA署名による改ざん防止の仕組み、そしてOAuth 2.0のリフレッシュトークンフローなど、**「メカニズム」** に焦点を当てて解説しています。
 
-## 📚 ドキュメント一覧
+## 📂 ディレクトリ構成
 
-### [第1章: JWTの構造とデコード](docs/01_jwt_structure.md)
+学習しやすいように、章ごとにディレクトリを分けています。
+
+```text
+entra-learn/
+├── 01_jwt_structure/    # 第1章: JWTの構造とデコード
+├── 02_signature/        # 第2章: 署名とセキュリティ検証
+├── 03_refresh_token/    # 第3章: リフレッシュトークンによる更新
+├── .env.example         # 環境変数のテンプレート
+├── pyproject.toml       # 依存関係の定義
+└── uv.lock              # バージョン固定ファイル
+```
+
+## 📚 学習コンテンツ
+
+各ディレクトリにある `README.md` に詳細な解説があります。
+
+### [第1章: JWTの構造とデコード](01_jwt_structure/README.md)
 *   アクセストークン (JWT) の3つのパーツ（ヘッダー、ペイロード、署名）
 *   Base64エンコード・デコードの仕組み
-*   トークンの中身（クレーム）の詳細解説
-*   **ツール**: `decode_jwt.py` の使い方
+*   **実践**: `decode_jwt.py` を使ってトークンの中身を覗いてみる
 
-### [第2章: 署名とセキュリティ検証](docs/02_signature_verification.md)
+### [第2章: 署名とセキュリティ検証](02_signature/README.md)
 *   署名 (Signature) の役割と仕組み
 *   RSA暗号とSHA-256による改ざん防止
-*   なぜHTTPSが必要なのか
-*   **ツール**: `verify_signature.py` の使い方（改ざん検知の実験）
+*   **実践**: `verify_signature.py` で署名の作成と改ざん検知をシミュレーション
 
-## 🛠️ ツール一覧
-
-このリポジトリには、学習用のPythonスクリプトが含まれています。
-
-### 1. `decode_jwt.py`
-アクセストークンをデコードして中身を表示します。
-*   [解説はこちら](docs/01_jwt_structure.md#4-実践ツール-decode_jwtpy)
-
-### 2. `verify_signature.py`
-署名の作成・検証・改ざん検知をシミュレーションします。
-*   [解説はこちら](docs/02_signature_verification.md#4-実践ツール-verify_signaturepy)
+### [第3章: リフレッシュトークンによる更新](03_refresh_token/README.md)
+*   アクセストークンの有効期限と更新フロー
+*   SPA (Single Page Application) におけるセキュリティ制約 (Originヘッダー)
+*   トークンローテーション（更新ごとのトークン変更）
+*   **実践**: `refresh_token_client.py` で実際にトークンを更新してみる
 
 ## 🚀 環境セットアップ
 
-Pythonのパッケージ管理には `uv` を使用しています。
+このプロジェクトでは、Pythonのパッケージ管理に **`uv`** を使用しています。
+
+### 1. 依存関係のインストール
 
 ```bash
-# 初期化と依存関係のインストール
+# リポジトリのクローン（まだの場合）
+git clone <repository-url>
+cd entra-learn
+
+# 依存パッケージのインストール
 uv sync
+```
+
+### 2. 各章の学習
+
+各ディレクトリに移動して、READMEを読みながら学習を進めてください。
+
+*   **[01_jwt_structure/](01_jwt_structure/README.md)**: JWTの構造理解
+*   **[02_signature/](02_signature/README.md)**: 署名の検証実験
+*   **[03_refresh_token/](03_refresh_token/README.md)**: トークン更新の実践（※設定が必要です）
+
+### 3. スクリプトの実行
+
+```bash
+# 例: 第3章のスクリプトを実行する場合
+cd 03_refresh_token
+uv run refresh_token_client.py
 ```

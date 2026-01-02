@@ -1,8 +1,13 @@
-# 機密情報ファイル（アクセストークンなど）
-access_token
-*.token
+# Environment Variables
 .env
 
-# Python キャッシュ・一時ファイル
+# Token Cache
+refresh_token
+refresh_token.txt
+access_token
+*.token
+
+# Python
 __pycache__/
 *.py[cod]
+.venv/

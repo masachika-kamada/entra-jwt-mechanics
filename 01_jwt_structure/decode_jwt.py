@@ -1,13 +1,17 @@
 import base64
 import json
 import sys
+import os
 
 # アクセストークンが書かれたファイルを読み込む
+# スクリプトと同じディレクトリにある 'access_token' を探す
+token_path = os.path.join(os.path.dirname(__file__), 'access_token')
+
 try:
-    with open('access_token', 'r', encoding='utf-8') as f:
+    with open(token_path, 'r', encoding='utf-8') as f:
         token = f.read().strip()
 except FileNotFoundError:
-    print("エラー: 'access_token' というファイルが見つかりません。")
+    print(f"エラー: '{token_path}' が見つかりません。")
     sys.exit(1)
 
 def decode_base64_url(data):
